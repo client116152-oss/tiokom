@@ -663,35 +663,6 @@
             margin-bottom: 20px;
         }
 
-        .map-legend {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-        }
-
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .legend-color {
-            width: 20px;
-            height: 20px;
-            border-radius: 4px;
-            display: inline-block;
-        }
-
-        .legend-color.primary {
-            background-color: var(--primary);
-        }
-
-        .legend-color.secondary {
-            background-color: var(--secondary);
-        }
-
         .yandex-map-wrapper {
             margin: 20px 0;
             border-radius: 8px;
@@ -1154,11 +1125,6 @@
             
             .certificates-grid {
                 grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            }
-            
-            .map-legend {
-                flex-direction: column;
-                gap: 15px;
             }
             
             .custom-russia-map {
@@ -2213,16 +2179,6 @@
                 </div>
                 <div class="custom-russia-map">
                     <div class="map-title">Регионы присутствия наших дистрибьюторов</div>
-                    <div class="map-legend">
-                        <div class="legend-item">
-                            <span class="legend-color primary"></span>
-                            <span>Регионы России с дистрибьюторами</span>
-                        </div>
-                        <div class="legend-item">
-                            <span class="legend-color secondary"></span>
-                            <span>Страны СНГ с дистрибьюторами</span>
-                        </div>
-                    </div>
                     
                     <!-- Яндекс.Карта -->
                     <div class="yandex-map-wrapper">
@@ -2910,13 +2866,13 @@
                     region: 'Беларусь',
                     cities: ['Минск'],
                     distributors: 1,
-                    color: '#ff9800'
+                    color: '#0d47a1'
                 },
                 {
                     region: 'Казахстан',
                     cities: ['Алматы'],
                     distributors: 1,
-                    color: '#ff9800'
+                    color: '#0d47a1'
                 }
             ];
 
@@ -2989,42 +2945,6 @@
                     alert('Информация о дистрибьюторах в регионе ' + regionName + ' доступна в списке ниже.');
                 }
             }
-
-            // Добавляем кластеризацию для лучшего отображения при большом зуме
-            var clusterer = new ymaps.Clusterer({
-                clusterDisableClickZoom: true,
-                clusterOpenBalloonOnClick: true,
-                clusterBalloonContentLayout: 'cluster#balloonTwoColumns'
-            });
-
-            // Создаем метки для основных городов
-            var citiesData = [
-                { name: 'Казань', coords: [55.796127, 49.106405] },
-                { name: 'Москва', coords: [55.755826, 37.617300] },
-                { name: 'Санкт-Петербург', coords: [59.934280, 30.335098] },
-                { name: 'Екатеринбург', coords: [56.838011, 60.597465] },
-                { name: 'Новосибирск', coords: [55.008353, 82.935732] },
-                { name: 'Нижний Новгород', coords: [56.326887, 44.005986] },
-                { name: 'Красноярск', coords: [56.015283, 92.893248] },
-                { name: 'Владивосток', coords: [43.115542, 131.885494] },
-                { name: 'Ростов-на-Дону', coords: [47.222531, 39.718676] },
-                { name: 'Уфа', coords: [54.735147, 55.958727] },
-                { name: 'Минск', coords: [53.904540, 27.561524] },
-                { name: 'Алматы', coords: [43.238949, 76.889709] }
-            ];
-
-            citiesData.forEach(function(city) {
-                var cityMarker = new ymaps.Placemark(city.coords, {
-                    hintContent: city.name,
-                    balloonContent: city.name
-                }, {
-                    preset: 'islands#blueStretchyIcon'
-                });
-                
-                clusterer.add(cityMarker);
-            });
-
-            distributorsMap.geoObjects.add(clusterer);
         }
     </script>
 </body>
