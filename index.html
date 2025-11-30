@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://api-maps.yandex.ru/2.1/?apikey=ваш_api_ключ&lang=ru_RU" type="text/javascript"></script>
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=01bd8f29-aa9b-43c6-b818-86fd560e6a0e&lang=ru_RU" type="text/javascript"></script>
     <style>
         :root {
             --primary: #0d47a1;
@@ -663,6 +663,35 @@
             margin-bottom: 20px;
         }
 
+        .map-legend {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .legend-color.primary {
+            background-color: var(--primary);
+        }
+
+        .legend-color.secondary {
+            background-color: var(--secondary);
+        }
+
         .yandex-map-wrapper {
             margin: 20px 0;
             border-radius: 8px;
@@ -1125,6 +1154,11 @@
             
             .certificates-grid {
                 grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .map-legend {
+                flex-direction: column;
+                gap: 15px;
             }
             
             .custom-russia-map {
@@ -2179,6 +2213,16 @@
                 </div>
                 <div class="custom-russia-map">
                     <div class="map-title">Регионы присутствия наших дистрибьюторов</div>
+                    <div class="map-legend">
+                        <div class="legend-item">
+                            <span class="legend-color primary"></span>
+                            <span>Регионы России с дистрибьюторами</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color secondary"></span>
+                            <span>Страны СНГ с дистрибьюторами</span>
+                        </div>
+                    </div>
                     
                     <!-- Яндекс.Карта -->
                     <div class="yandex-map-wrapper">
@@ -2752,70 +2796,182 @@
                 controls: ['zoomControl', 'fullscreenControl']
             });
 
-            // Координаты всех городов с дистрибьюторами
-            var citiesData = [
-                { name: 'Казань', coords: [55.796127, 49.106405] },
-                { name: 'Омск', coords: [54.988480, 73.324236] },
-                { name: 'Барнаул', coords: [53.347996, 83.779806] },
-                { name: 'Оренбург', coords: [51.768199, 55.096955] },
-                { name: 'Иркутск', coords: [52.286387, 104.280660] },
-                { name: 'Самара', coords: [53.195533, 50.101801] },
-                { name: 'Екатеринбург', coords: [56.838011, 60.597465] },
-                { name: 'Красноярск', coords: [56.015283, 92.893248] },
-                { name: 'Москва', coords: [55.755826, 37.617300] },
-                { name: 'Томск', coords: [56.484640, 84.947649] },
-                { name: 'Ижевск', coords: [56.852775, 53.211463] },
-                { name: 'Нижний Новгород', coords: [56.326887, 44.005986] },
-                { name: 'Новосибирск', coords: [55.008353, 82.935732] },
-                { name: 'Ульяновск', coords: [54.314192, 48.403132] },
-                { name: 'Хабаровск', coords: [48.480223, 135.071917] },
-                { name: 'Челябинск', coords: [55.159897, 61.402554] },
-                { name: 'Воронеж', coords: [51.660781, 39.200269] },
-                { name: 'Тюмень', coords: [57.153033, 65.534328] },
-                { name: 'Сургут', coords: [61.254035, 73.396230] },
-                { name: 'Краснодар', coords: [45.035470, 38.975313] },
-                { name: 'Вологда', coords: [59.220496, 39.891523] },
-                { name: 'Санкт-Петербург', coords: [59.934280, 30.335098] },
-                { name: 'Саратов', coords: [51.533557, 46.034257] },
-                { name: 'Волгоград', coords: [48.707067, 44.516975] },
-                { name: 'Уфа', coords: [54.735147, 55.958727] },
-                { name: 'Набережные Челны', coords: [55.743553, 52.395555] },
-                { name: 'Минск', coords: [53.904540, 27.561524] },
-                { name: 'Алматы', coords: [43.238949, 76.889709] }
+            // Данные по регионам с дистрибьюторами
+            var regionsData = [
+                {
+                    region: 'Москва и Московская область',
+                    cities: ['Москва', 'Красногорск'],
+                    distributors: 3,
+                    color: '#0d47a1'
+                },
+                {
+                    region: 'Татарстан',
+                    cities: ['Казань', 'Набережные Челны'],
+                    distributors: 2,
+                    color: '#0d47a1'
+                },
+                {
+                    region: 'Санкт-Петербург и Ленинградская область',
+                    cities: ['Санкт-Петербург'],
+                    distributors: 1,
+                    color: '#0d47a1'
+                },
+                {
+                    region: 'Свердловская область',
+                    cities: ['Екатеринбург'],
+                    distributors: 1,
+                    color: '#0d47a1'
+                },
+                {
+                    region: 'Новосибирская область',
+                    cities: ['Новосибирск'],
+                    distributors: 1,
+                    color: '#0d47a1'
+                },
+                {
+                    region: 'Челябинская область',
+                    cities: ['Челябинск'],
+                    distributors: 1,
+                    color: '#0d47a1'
+                },
+                {
+                    region: 'Омская область',
+                    cities: ['Омск'],
+                    distributors: 1,
+                    color: '#0d47a1'
+                },
+                {
+                    region: 'Самарская область',
+                    cities: ['Самара'],
+                    distributors: 1,
+                    color: '#0d47a1'
+                },
+                {
+                    region: 'Нижегородская область',
+                    cities: ['Нижний Новгород'],
+                    distributors: 1,
+                    color: '#0d47a1'
+                },
+                {
+                    region: 'Красноярский край',
+                    cities: ['Красноярск'],
+                    distributors: 1,
+                    color: '#0d47a1'
+                },
+                {
+                    region: 'Иркутская область',
+                    cities: ['Иркутск'],
+                    distributors: 1,
+                    color: '#0d47a1'
+                },
+                {
+                    region: 'Томская область',
+                    cities: ['Томск'],
+                    distributors: 1,
+                    color: '#0d47a1'
+                },
+                {
+                    region: 'Тюменская область',
+                    cities: ['Тюмень'],
+                    distributors: 1,
+                    color: '#0d47a1'
+                },
+                {
+                    region: 'Вологодская область',
+                    cities: ['Вологда'],
+                    distributors: 1,
+                    color: '#0d47a1'
+                },
+                {
+                    region: 'Ростовская область',
+                    cities: ['Ростов-на-Дону'],
+                    distributors: 1,
+                    color: '#0d47a1'
+                },
+                {
+                    region: 'Волгоградская область',
+                    cities: ['Волгоград'],
+                    distributors: 1,
+                    color: '#0d47a1'
+                },
+                {
+                    region: 'Краснодарский край',
+                    cities: ['Краснодар'],
+                    distributors: 1,
+                    color: '#0d47a1'
+                },
+                {
+                    region: 'Хабаровский край',
+                    cities: ['Хабаровск'],
+                    distributors: 1,
+                    color: '#0d47a1'
+                },
+                {
+                    region: 'Беларусь',
+                    cities: ['Минск'],
+                    distributors: 1,
+                    color: '#ff9800'
+                },
+                {
+                    region: 'Казахстан',
+                    cities: ['Алматы'],
+                    distributors: 1,
+                    color: '#ff9800'
+                }
             ];
 
-            // Создаем коллекцию для меток
-            var citiesCollection = new ymaps.GeoObjectCollection();
+            // Создаем коллекцию для регионов
+            var regionsCollection = new ymaps.GeoObjectCollection();
 
-            // Добавляем метки для каждого города
-            citiesData.forEach(function(city) {
-                var cityMarker = new ymaps.Placemark(city.coords, {
-                    hintContent: city.name,
-                    balloonContent: city.name
-                }, {
-                    preset: 'islands#blueStretchyIcon'
+            // Добавляем регионы на карту
+            regionsData.forEach(function(regionData) {
+                // Поиск координат региона
+                ymaps.geocode(regionData.region, {
+                    results: 1
+                }).then(function (res) {
+                    var firstGeoObject = res.geoObjects.get(0);
+                    if (firstGeoObject) {
+                        var coordinates = firstGeoObject.geometry.getCoordinates();
+                        var bounds = firstGeoObject.properties.get('boundedBy');
+                        
+                        // Создаем метку для региона
+                        var regionMarker = new ymaps.Placemark(coordinates, {
+                            balloonContentHeader: regionData.region,
+                            balloonContentBody: 
+                                '<strong>Города:</strong> ' + regionData.cities.join(', ') + '<br>' +
+                                '<strong>Количество дистрибьюторов:</strong> ' + regionData.distributors,
+                            balloonContentFooter: '<em>Нажмите для подробной информации</em>',
+                            hintContent: regionData.region
+                        }, {
+                            preset: 'islands#circleIcon',
+                            iconColor: regionData.color,
+                            balloonCloseButton: true,
+                            hideIconOnBalloonOpen: false
+                        });
+
+                        // Добавляем обработчик клика
+                        regionMarker.events.add('click', function () {
+                            // При клике показываем информацию о дистрибьюторах в этом регионе
+                            showRegionDistributors(regionData.region);
+                        });
+
+                        regionsCollection.add(regionMarker);
+                    }
                 });
-
-                // Добавляем обработчик клика
-                cityMarker.events.add('click', function () {
-                    showCityDistributors(city.name);
-                });
-
-                citiesCollection.add(cityMarker);
             });
 
             // Добавляем коллекцию на карту
-            distributorsMap.geoObjects.add(citiesCollection);
+            distributorsMap.geoObjects.add(regionsCollection);
 
-            // Функция для показа дистрибьюторов города
-            function showCityDistributors(cityName) {
+            // Функция для показа дистрибьюторов региона
+            function showRegionDistributors(regionName) {
                 // Находим карточки регионов по названию
                 var regionCards = document.querySelectorAll('.region-card');
                 var found = false;
                 
                 regionCards.forEach(function(card) {
-                    var cardCity = card.querySelector('h3').textContent;
-                    if (cardCity === cityName) {
+                    var cardRegion = card.querySelector('h3').textContent;
+                    if (cardRegion.includes(regionName.split(' ')[0]) || regionName.includes(cardRegion)) {
                         card.scrollIntoView({ behavior: 'smooth', block: 'center' });
                         
                         // Добавляем подсветку
@@ -2830,7 +2986,7 @@
                 
                 if (!found) {
                     // Если точного совпадения нет, показываем общее сообщение
-                    alert('Информация о дистрибьюторах в городе ' + cityName + ' доступна в списке ниже.');
+                    alert('Информация о дистрибьюторах в регионе ' + regionName + ' доступна в списке ниже.');
                 }
             }
 
@@ -2841,7 +2997,22 @@
                 clusterBalloonContentLayout: 'cluster#balloonTwoColumns'
             });
 
-            // Добавляем метки в кластер
+            // Создаем метки для основных городов
+            var citiesData = [
+                { name: 'Казань', coords: [55.796127, 49.106405] },
+                { name: 'Москва', coords: [55.755826, 37.617300] },
+                { name: 'Санкт-Петербург', coords: [59.934280, 30.335098] },
+                { name: 'Екатеринбург', coords: [56.838011, 60.597465] },
+                { name: 'Новосибирск', coords: [55.008353, 82.935732] },
+                { name: 'Нижний Новгород', coords: [56.326887, 44.005986] },
+                { name: 'Красноярск', coords: [56.015283, 92.893248] },
+                { name: 'Владивосток', coords: [43.115542, 131.885494] },
+                { name: 'Ростов-на-Дону', coords: [47.222531, 39.718676] },
+                { name: 'Уфа', coords: [54.735147, 55.958727] },
+                { name: 'Минск', coords: [53.904540, 27.561524] },
+                { name: 'Алматы', coords: [43.238949, 76.889709] }
+            ];
+
             citiesData.forEach(function(city) {
                 var cityMarker = new ymaps.Placemark(city.coords, {
                     hintContent: city.name,
