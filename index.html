@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -592,6 +592,8 @@
             overflow: hidden;
             box-shadow: var(--shadow);
             transition: var(--transition);
+            display: flex;
+            flex-direction: column;
         }
 
         .region-card:hover {
@@ -611,10 +613,14 @@
 
         .region-body {
             padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
         }
 
         .region-info {
             margin-bottom: 15px;
+            flex-grow: 1;
         }
 
         .region-info p {
@@ -1998,7 +2004,9 @@
                     </div>
                     <div class="region-body">
                         <div class="region-info">
-                            <p><i class="fas fa-building"></i> <strong>Филиал ООО "ФауБеХа1</div>
+                            <p><i class="fas fa-building"></i> <strong>Филиал ООО "ФауБеХа-Сиб"</strong></p>
+                            <p><i class="fas fa-map-marker-alt"></i> г. Томск, ул. Фрунзе, 111, офис 305</p>
+                        </div>
                         <div class="region-contacts">
                             <p><i class="fas fa-mobile-alt"></i> моб.: +7 913-849-50-01</p>
                         </div>
@@ -2798,7 +2806,7 @@
                     // Показать/скрыть карточки в зависимости от фильтра
                     regionCards.forEach(card => {
                         if (filter === 'all' || card.getAttribute('data-region') === filter) {
-                            card.style.display = 'block';
+                            card.style.display = 'flex';
                         } else {
                             card.style.display = 'none';
                         }
