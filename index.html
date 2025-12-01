@@ -720,7 +720,6 @@
             border-radius: 12px;
             padding: 40px;
             box-shadow: var(--shadow);
-            height: fit-content;
         }
 
         .contact-details {
@@ -770,10 +769,170 @@
             line-height: 1.6;
         }
 
+        /* Стили для схемы проезда */
+        .scheme-section {
+            margin-bottom: 30px;
+        }
+
+        .scheme-carousel {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            margin-bottom: 15px;
+        }
+
+        .scheme-slides {
+            display: flex;
+            width: 300%;
+            height: 100%;
+            transition: transform 0.8s ease;
+        }
+
+        .scheme-slide {
+            width: 33.333%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--light);
+        }
+
+        .scheme-slide img {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            padding: 20px;
+        }
+
+        .scheme-controls {
+            display: flex;
+            justify-content: space-between;
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            transform: translateY(-50%);
+            padding: 0 20px;
+        }
+
+        .scheme-btn {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(13, 71, 161, 0.8);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .scheme-btn:hover {
+            background-color: var(--primary);
+            transform: scale(1.1);
+        }
+
+        .scheme-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .scheme-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--light-gray);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .scheme-indicator.active {
+            background-color: var(--primary);
+        }
+
+        .scheme-note {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 5px;
+            padding: 15px;
+            text-align: center;
+            font-weight: 600;
+            color: #856404;
+        }
+
+        /* Карта контактов */
+        .contacts-map-container {
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            height: 400px;
+        }
+
+        .contacts-map-container h3 {
+            padding: 20px 20px 0;
+            margin-bottom: 0;
+        }
+
+        #contacts-map {
+            width: 100%;
+            height: calc(100% - 60px);
+        }
+
+        /* Рабочее время в левой колонке */
+        .working-hours-left {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--white);
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .working-hours-left h3 {
+            color: var(--white);
+            margin-bottom: 20px;
+        }
+
+        .hours-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .hour-item {
+            text-align: center;
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+        }
+
+        .hour-item .day {
+            font-weight: 600;
+            margin-bottom: 5px;
+            font-size: 1rem;
+        }
+
+        .hour-item .time {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        /* Реквизиты */
         .requisites-card {
             background: var(--white);
             border-radius: 12px;
-            padding: 40px;
+            padding: 30px;
             box-shadow: var(--shadow);
             margin-top: 30px;
         }
@@ -793,56 +952,6 @@
             color: var(--primary);
             display: block;
             margin-bottom: 5px;
-        }
-
-        /* Карта контактов */
-        .contacts-map-container {
-            background: var(--white);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            height: 500px;
-        }
-
-        #contacts-map {
-            width: 100%;
-            height: 100%;
-        }
-
-        /* Рабочее время */
-        .working-hours {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: var(--white);
-            padding: 30px;
-            border-radius: 12px;
-            text-align: center;
-            margin-top: 30px;
-        }
-
-        .working-hours h3 {
-            color: var(--white);
-            margin-bottom: 15px;
-        }
-
-        .hours-list {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
-        }
-
-        .hour-item {
-            text-align: center;
-        }
-
-        .hour-item .day {
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-
-        .hour-item .time {
-            font-size: 1.1rem;
-            font-weight: 500;
         }
 
         /* Сертификаты */
@@ -1118,9 +1227,8 @@
                 grid-template-columns: 1fr;
             }
             
-            .hours-list {
-                flex-direction: column;
-                gap: 15px;
+            .hours-grid {
+                grid-template-columns: 1fr;
             }
             
             .certificates-grid {
@@ -1137,6 +1245,10 @@
             
             .stat-number {
                 font-size: 1.5rem;
+            }
+            
+            .scheme-carousel {
+                height: 350px;
             }
         }
 
@@ -1191,7 +1303,8 @@
             }
             
             .contact-info-card,
-            .requisites-card {
+            .requisites-card,
+            .working-hours-left {
                 padding: 25px;
             }
             
@@ -1217,11 +1330,31 @@
             #distributors-map {
                 height: 400px !important;
             }
+            
+            .scheme-carousel {
+                height: 300px;
+            }
+            
+            .scheme-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
         }
 
         @media (max-width: 480px) {
             #distributors-map {
                 height: 300px !important;
+            }
+            
+            .scheme-carousel {
+                height: 250px;
+            }
+            
+            .scheme-btn {
+                width: 35px;
+                height: 35px;
+                font-size: 16px;
             }
         }
     </style>
@@ -2301,8 +2434,9 @@
                 </div>
 
                 <div class="contacts-grid">
-                    <!-- Контактная информация -->
+                    <!-- Левая колонка: Контакты, реквизиты и режим работы -->
                     <div>
+                        <!-- Контактная информация -->
                         <div class="contact-info-card">
                             <h3>Контактная информация</h3>
                             <div class="contact-details">
@@ -2384,18 +2518,11 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Карта -->
-                    <div>
-                        <div class="contacts-map-container">
-                            <div id="contacts-map"></div>
-                        </div>
-
-                        <!-- Время работы -->
-                        <div class="working-hours">
+                        <!-- Режим работы -->
+                        <div class="working-hours-left">
                             <h3>Режим работы</h3>
-                            <div class="hours-list">
+                            <div class="hours-grid">
                                 <div class="hour-item">
                                     <div class="day">Понедельник - Пятница</div>
                                     <div class="time">9:00 - 18:00</div>
@@ -2405,10 +2532,56 @@
                                     <div class="time">9:00 - 16:00</div>
                                 </div>
                                 <div class="hour-item">
-                                    <div class="day">Суббота - Воскресенье</div>
+                                    <div class="day">Суббота</div>
+                                    <div class="time">Выходной</div>
+                                </div>
+                                <div class="hour-item">
+                                    <div class="day">Воскресенье</div>
                                     <div class="time">Выходной</div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+
+                    <!-- Правая колонка: Схема проезда и карта -->
+                    <div>
+                        <!-- Схема проезда к месту погрузки -->
+                        <div class="scheme-section">
+                            <h3>Схема проезда к месту погрузки</h3>
+                            
+                            <div class="scheme-carousel">
+                                <div class="scheme-slides">
+                                    <div class="scheme-slide">
+                                        <img src="images/scheme1.jpg" alt="Схема проезда 1 - Въезд на территорию">
+                                    </div>
+                                    <div class="scheme-slide">
+                                        <img src="images/scheme2.jpg" alt="Схема проезда 2 - Маршрут к погрузочной площадке">
+                                    </div>
+                                    <div class="scheme-slide">
+                                        <img src="images/scheme3.jpg" alt="Схема проезда 3 - Зона погрузки">
+                                    </div>
+                                </div>
+                                <div class="scheme-controls">
+                                    <button class="scheme-btn scheme-prev">‹</button>
+                                    <button class="scheme-btn scheme-next">›</button>
+                                </div>
+                            </div>
+                            
+                            <div class="scheme-indicators">
+                                <span class="scheme-indicator active" data-slide="0"></span>
+                                <span class="scheme-indicator" data-slide="1"></span>
+                                <span class="scheme-indicator" data-slide="2"></span>
+                            </div>
+                            
+                            <div class="scheme-note">
+                                Во избежание трудностей строго придерживайтесь данного маршрута при проезде на погрузку.
+                            </div>
+                        </div>
+
+                        <!-- Карта с офисом -->
+                        <div class="contacts-map-container">
+                            <h3>Местоположение офиса</h3>
+                            <div id="contacts-map"></div>
                         </div>
                     </div>
                 </div>
@@ -2708,6 +2881,98 @@
                     contactForm.reset();
                     closeModalFunc();
                 });
+            }
+            
+            // Карусель схемы проезда с кнопками
+            const schemeSlides = document.querySelector('.scheme-slides');
+            const schemeIndicators = document.querySelectorAll('.scheme-indicator');
+            const prevBtn = document.querySelector('.scheme-prev');
+            const nextBtn = document.querySelector('.scheme-next');
+            let currentSlide = 0;
+            const slideCount = 3;
+            
+            function goToSlide(slideIndex) {
+                if (slideIndex < 0) slideIndex = slideCount - 1;
+                if (slideIndex >= slideCount) slideIndex = 0;
+                
+                currentSlide = slideIndex;
+                schemeSlides.style.transform = `translateX(-${currentSlide * 33.333}%)`;
+                
+                // Обновляем индикаторы
+                schemeIndicators.forEach((indicator, index) => {
+                    if (index === currentSlide) {
+                        indicator.classList.add('active');
+                    } else {
+                        indicator.classList.remove('active');
+                    }
+                });
+            }
+            
+            function nextSlide() {
+                goToSlide(currentSlide + 1);
+            }
+            
+            function prevSlide() {
+                goToSlide(currentSlide - 1);
+            }
+            
+            // Инициализация карусели
+            if (schemeSlides) {
+                // Обработчики для индикаторов
+                schemeIndicators.forEach((indicator, index) => {
+                    indicator.addEventListener('click', () => {
+                        goToSlide(index);
+                    });
+                });
+                
+                // Обработчики для кнопок
+                if (prevBtn) {
+                    prevBtn.addEventListener('click', prevSlide);
+                }
+                
+                if (nextBtn) {
+                    nextBtn.addEventListener('click', nextSlide);
+                }
+                
+                // Добавляем свайпы для мобильных устройств
+                let touchStartX = 0;
+                let touchEndX = 0;
+                
+                schemeSlides.parentElement.addEventListener('touchstart', (e) => {
+                    touchStartX = e.changedTouches[0].screenX;
+                });
+                
+                schemeSlides.parentElement.addEventListener('touchend', (e) => {
+                    touchEndX = e.changedTouches[0].screenX;
+                    handleSwipe();
+                });
+                
+                function handleSwipe() {
+                    const swipeThreshold = 50; // Минимальное расстояние свайпа
+                    
+                    if (touchStartX - touchEndX > swipeThreshold) {
+                        // Свайп влево - следующий слайд
+                        nextSlide();
+                    }
+                    
+                    if (touchEndX - touchStartX > swipeThreshold) {
+                        // Свайп вправо - предыдущий слайд
+                        prevSlide();
+                    }
+                }
+                
+                // Автоматическое перелистывание (опционально, можно закомментировать)
+                // let slideInterval = setInterval(nextSlide, 5000);
+                
+                // Останавливаем авто-перелистывание при наведении мыши
+                // schemeSlides.parentElement.addEventListener('mouseenter', () => {
+                //     clearInterval(slideInterval);
+                // });
+                
+                // Возобновляем авто-перелистывание при уходе мыши
+                // schemeSlides.parentElement.addEventListener('mouseleave', () => {
+                //     slideInterval = setInterval(nextSlide, 5000);
+                // });
             }
         });
 
