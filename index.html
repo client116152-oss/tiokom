@@ -36,6 +36,7 @@
             line-height: 1.6;
             color: var(--dark);
             background-color: var(--light);
+            overflow-x: hidden;
         }
 
         h1, h2, h3, h4, h5, h6 {
@@ -960,67 +961,312 @@
             margin-bottom: 5px;
         }
 
-        /* Сертификаты */
+        /* НОВЫЕ СТИЛИ ДЛЯ РАЗДЕЛА СЕРТИФИКАТОВ */
         .certificates-section {
             padding: 80px 0;
             background-color: var(--light);
         }
 
-        .certificates-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
+        .certificates-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
-        .certificate-card {
+        .certificates-tab {
+            padding: 12px 25px;
+            background-color: var(--light-gray);
+            border: none;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .certificates-tab:hover {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        .certificates-tab.active {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        .certificates-content {
+            display: none;
+        }
+
+        .certificates-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .product-certificates {
+            margin-bottom: 60px;
+        }
+
+        .product-certificates h3 {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--primary-light);
+        }
+
+        .documents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .document-card {
             background: var(--white);
             border-radius: 8px;
             overflow: hidden;
             box-shadow: var(--shadow);
             transition: var(--transition);
+            cursor: pointer;
             height: 100%;
             display: flex;
             flex-direction: column;
         }
 
-        .certificate-card:hover {
+        .document-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
         }
 
-        .certificate-image {
-            height: 350px;
+        .document-image {
+            height: 200px;
             overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
             background-color: var(--light);
+            position: relative;
         }
 
-        .certificate-image img {
+        .document-image img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
+            padding: 10px;
         }
 
-        .certificate-info {
+        .document-pages {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(13, 71, 161, 0.9);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .document-info {
             padding: 20px;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
         }
 
-        .certificate-name {
+        .document-name {
             font-weight: 600;
             color: var(--primary);
             margin-bottom: 10px;
-            font-size: 1.1rem;
+            font-size: 1rem;
+            line-height: 1.4;
         }
 
-        .certificate-description {
+        .document-description {
             color: var(--gray);
             font-size: 0.9rem;
+            margin-bottom: 15px;
             flex-grow: 1;
+        }
+
+        .document-view-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 8px 15px;
+            background-color: var(--primary-light);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: auto;
+        }
+
+        .document-view-btn:hover {
+            background-color: var(--primary);
+        }
+
+        /* Модальное окно для просмотра документов */
+        .document-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 3000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .document-modal.active {
+            display: flex;
+        }
+
+        .document-modal-content {
+            background-color: var(--white);
+            width: 90%;
+            max-width: 900px;
+            max-height: 90vh;
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .document-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        .document-modal-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin: 0;
+            color: var(--white);
+        }
+
+        .document-modal-close {
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.8rem;
+            cursor: pointer;
+            line-height: 1;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .document-modal-body {
+            flex-grow: 1;
+            overflow: auto;
+            padding: 20px;
+            position: relative;
+        }
+
+        .document-carousel {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .document-carousel-slides {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .document-carousel-slide {
+            min-width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .document-carousel-image {
+            max-width: 100%;
+            max-height: 60vh;
+            object-fit: contain;
+            margin-bottom: 20px;
+        }
+
+        .document-carousel-page {
+            text-align: center;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .document-carousel-controls {
+            display: flex;
+            justify-content: space-between;
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            transform: translateY(-50%);
+            padding: 0 20px;
+            z-index: 10;
+        }
+
+        .document-carousel-btn {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(13, 71, 161, 0.8);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .document-carousel-btn:hover {
+            background-color: var(--primary);
+            transform: scale(1.1);
+        }
+
+        .document-carousel-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .document-carousel-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--light-gray);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .document-carousel-indicator.active {
+            background-color: var(--primary);
+        }
+
+        .document-modal-footer {
+            padding: 15px 20px;
+            background-color: var(--light);
+            text-align: center;
+            border-top: 1px solid var(--light-gray);
         }
 
         /* CTA Section */
@@ -1237,8 +1483,8 @@
                 grid-template-columns: 1fr;
             }
             
-            .certificates-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            .documents-grid {
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
             }
             
             .custom-russia-map {
@@ -1255,6 +1501,11 @@
             
             .scheme-carousel {
                 height: 350px;
+            }
+            
+            .document-modal-content {
+                width: 95%;
+                max-height: 85vh;
             }
         }
 
@@ -1324,7 +1575,7 @@
                 margin-bottom: 15px;
             }
             
-            .certificates-grid {
+            .documents-grid {
                 grid-template-columns: 1fr;
             }
             
@@ -1346,6 +1597,26 @@
                 height: 40px;
                 font-size: 18px;
             }
+            
+            .certificates-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .certificates-tab {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .document-carousel-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+            
+            .document-carousel-image {
+                max-height: 50vh;
+            }
         }
 
         @media (max-width: 480px) {
@@ -1361,6 +1632,24 @@
                 width: 35px;
                 height: 35px;
                 font-size: 16px;
+            }
+            
+            .document-modal-header {
+                padding: 15px;
+            }
+            
+            .document-modal-title {
+                font-size: 1.1rem;
+            }
+            
+            .document-carousel-btn {
+                width: 35px;
+                height: 35px;
+                font-size: 16px;
+            }
+            
+            .document-carousel-image {
+                max-height: 40vh;
             }
         }
     </style>
@@ -2347,7 +2636,7 @@
         </div>
     </section>
 
-    <!-- Сертификаты -->
+    <!-- Сертификаты - ОБНОВЛЕННЫЙ РАЗДЕЛ -->
     <section id="certificates" class="page-section certificates-section">
         <div class="container">
             <div class="section-header">
@@ -2355,60 +2644,241 @@
                 <p>Документы, подтверждающие качество нашей продукции</p>
             </div>
             
-            <div class="certificates-grid">
-                <!-- Сертификат 1 -->
-                <div class="certificate-card">
-                    <div class="certificate-image">
-                        <img src="images/certificates/neos-sanitary-certificate.jpg" alt="Сертификат Neos по санитарно-эпидемиологическим требованиям">
-                    </div>
-                    <div class="certificate-info">
-                        <div class="certificate-name">Сертификат Neos</div>
-                        <div class="certificate-description">Соответствие герметика Neos «Единым санитарно-эпидемиологическим и гигиеническим требованиям к товарам, подлежащим санитарно-эпидемиологическому надзору (контролю)»</div>
+            <!-- Вкладки для переключения между продуктами -->
+            <div class="certificates-tabs">
+                <button class="certificates-tab active" data-cert-tab="neos-sv">Neos SV</button>
+                <button class="certificates-tab" data-cert-tab="neos">Neos</button>
+                <button class="certificates-tab" data-cert-tab="nexus-pro">Nexus Pro</button>
+            </div>
+            
+            <!-- Документы для Neos SV -->
+            <div class="certificates-content active" id="certificates-neos-sv">
+                <div class="product-certificates">
+                    <h3>Neos SV</h3>
+                    <div class="documents-grid">
+                        <!-- Документ 1: Протокол исследований (2 страницы) -->
+                        <div class="document-card" data-document="neos-sv-1" data-pages="2" data-title="Протокол исследований Neos SV">
+                            <div class="document-image">
+                                <img src="images/certificates/neos-sv-protocol-1.jpg" alt="Протокол исследований Neos SV - страница 1">
+                                <span class="document-pages">2 стр.</span>
+                            </div>
+                            <div class="document-info">
+                                <div class="document-name">Протокол исследований</div>
+                                <div class="document-description">Протокол исследований герметика Neos SV. Документ содержит результаты испытаний и подтверждает соответствие техническим требованиям.</div>
+                                <button class="document-view-btn">
+                                    <i class="fas fa-search-plus"></i> Просмотреть документ
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Документ 2: Сертификат соответствия ГОСТ (1 страница) -->
+                        <div class="document-card" data-document="neos-sv-2" data-pages="1" data-title="Сертификат соответствия Neos SV ГОСТ 32998.4-2014">
+                            <div class="document-image">
+                                <img src="images/certificates/neos-sv-gost.jpg" alt="Сертификат соответствия Neos SV ГОСТ">
+                                <span class="document-pages">1 стр.</span>
+                            </div>
+                            <div class="document-info">
+                                <div class="document-name">Сертификат соответствия ГОСТ 32998.4-2014</div>
+                                <div class="document-description">Сертификат соответствия требованиям нормативных документов ГОСТ 32998.4-2014. Подтверждает соответствие герметика Neos SV государственным стандартам.</div>
+                                <button class="document-view-btn">
+                                    <i class="fas fa-search-plus"></i> Просмотреть документ
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Документ 3: Свидетельство о государственной регистрации (1 страница) -->
+                        <div class="document-card" data-document="neos-sv-3" data-pages="1" data-title="Свидетельство о государственной регистрации Neos SV">
+                            <div class="document-image">
+                                <img src="images/certificates/neos-sv-registration.jpg" alt="Свидетельство о государственной регистрации Neos SV">
+                                <span class="document-pages">1 стр.</span>
+                            </div>
+                            <div class="document-info">
+                                <div class="document-name">Свидетельство о государственной регистрации</div>
+                                <div class="document-description">Свидетельство о государственной регистрации продукции. Подтверждает официальную регистрацию герметика Neos SV в соответствующих органах.</div>
+                                <button class="document-view-btn">
+                                    <i class="fas fa-search-plus"></i> Просмотреть документ
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Документ 4: Экспертное заключение (2 страницы) -->
+                        <div class="document-card" data-document="neos-sv-4" data-pages="2" data-title="Экспертное заключение Neos SV">
+                            <div class="document-image">
+                                <img src="images/certificates/neos-sv-expert-1.jpg" alt="Экспертное заключение Neos SV - страница 1">
+                                <span class="document-pages">2 стр.</span>
+                            </div>
+                            <div class="document-info">
+                                <div class="document-name">Экспертное заключение</div>
+                                <div class="document-description">Экспертное заключение о соответствии продукции Единым санитарно-эпидемиологическим и гигиеническим требованиям. Подтверждает безопасность продукции для здоровья.</div>
+                                <button class="document-view-btn">
+                                    <i class="fas fa-search-plus"></i> Просмотреть документ
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                
-                <!-- Сертификат 2 -->
-                <div class="certificate-card">
-                    <div class="certificate-image">
-                        <img src="images/certificates/nexus-pro-gost-certificate.jpg" alt="Сертификат Nexus Pro ГОСТ">
-                    </div>
-                    <div class="certificate-info">
-                        <div class="certificate-name">Сертификат Nexus Pro</div>
-                        <div class="certificate-description">Соответствие герметика Nexus Pro требованиям нормативных документов ГОСТ</div>
+            </div>
+            
+            <!-- Документы для Neos -->
+            <div class="certificates-content" id="certificates-neos">
+                <div class="product-certificates">
+                    <h3>Neos</h3>
+                    <div class="documents-grid">
+                        <!-- Документ 1: Протокол исследований (2 страницы) -->
+                        <div class="document-card" data-document="neos-1" data-pages="2" data-title="Протокол исследований Neos">
+                            <div class="document-image">
+                                <img src="images/certificates/neos-protocol-1.jpg" alt="Протокол исследований Neos - страница 1">
+                                <span class="document-pages">2 стр.</span>
+                            </div>
+                            <div class="document-info">
+                                <div class="document-name">Протокол исследований</div>
+                                <div class="document-description">Протокол исследований герметика Neos. Документ содержит результаты испытаний и подтверждает соответствие техническим требованиям.</div>
+                                <button class="document-view-btn">
+                                    <i class="fas fa-search-plus"></i> Просмотреть документ
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Документ 2: Сертификат соответствия ГОСТ (1 страница) -->
+                        <div class="document-card" data-document="neos-2" data-pages="1" data-title="Сертификат соответствия Neos ГОСТ 32998.4-2014">
+                            <div class="document-image">
+                                <img src="images/certificates/neos-gost.jpg" alt="Сертификат соответствия Neos ГОСТ">
+                                <span class="document-pages">1 стр.</span>
+                            </div>
+                            <div class="document-info">
+                                <div class="document-name">Сертификат соответствия ГОСТ 32998.4-2014</div>
+                                <div class="document-description">Сертификат соответствия требованиям нормативных документов ГОСТ 32998.4-2014. Подтверждает соответствие герметика Neos государственным стандартам.</div>
+                                <button class="document-view-btn">
+                                    <i class="fas fa-search-plus"></i> Просмотреть документ
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Документ 3: Протокол испытаний на фенол (2 страницы) -->
+                        <div class="document-card" data-document="neos-3" data-pages="2" data-title="Протокол испытаний Neos на фенол">
+                            <div class="document-image">
+                                <img src="images/certificates/neos-phenol-1.jpg" alt="Протокол испытаний на фенол Neos - страница 1">
+                                <span class="document-pages">2 стр.</span>
+                            </div>
+                            <div class="document-info">
+                                <div class="document-name">Протокол испытаний на фенол</div>
+                                <div class="document-description">Протокол испытаний на содержание фенола. Подтверждает безопасность герметика Neos по содержанию вредных химических веществ.</div>
+                                <button class="document-view-btn">
+                                    <i class="fas fa-search-plus"></i> Просмотреть документ
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Документ 4: Экспертное заключение (2 страницы) -->
+                        <div class="document-card" data-document="neos-4" data-pages="2" data-title="Экспертное заключение Neos">
+                            <div class="document-image">
+                                <img src="images/certificates/neos-expert-1.jpg" alt="Экспертное заключение Neos - страница 1">
+                                <span class="document-pages">2 стр.</span>
+                            </div>
+                            <div class="document-info">
+                                <div class="document-name">Экспертное заключение</div>
+                                <div class="document-description">Экспертное заключение о соответствии продукции Единым санитарно-эпидемиологическим и гигиеническим требованиям. Подтверждает безопасность продукции для здоровья.</div>
+                                <button class="document-view-btn">
+                                    <i class="fas fa-search-plus"></i> Просмотреть документ
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                
-                <!-- Сертификат 3 -->
-                <div class="certificate-card">
-                    <div class="certificate-image">
-                        <img src="images/certificates/neos-gost-certificate.jpg" alt="Сертификат Neos ГОСТ">
-                    </div>
-                    <div class="certificate-info">
-                        <div class="certificate-name">Сертификат Neos</div>
-                        <div class="certificate-description">Соответствие герметика Neos требованиям нормативных документов ГОСТ</div>
+            </div>
+            
+            <!-- Документы для Nexus Pro -->
+            <div class="certificates-content" id="certificates-nexus-pro">
+                <div class="product-certificates">
+                    <h3>Nexus Pro</h3>
+                    <div class="documents-grid">
+                        <!-- Документ 1: Протокол исследований (2 страницы) -->
+                        <div class="document-card" data-document="nexus-pro-1" data-pages="2" data-title="Протокол исследований Nexus Pro">
+                            <div class="document-image">
+                                <img src="images/certificates/nexus-pro-protocol-1.jpg" alt="Протокол исследований Nexus Pro - страница 1">
+                                <span class="document-pages">2 стр.</span>
+                            </div>
+                            <div class="document-info">
+                                <div class="document-name">Протокол исследований</div>
+                                <div class="document-description">Протокол исследований герметика Nexus Pro. Документ содержит результаты испытаний и подтверждает соответствие техническим требованиям.</div>
+                                <button class="document-view-btn">
+                                    <i class="fas fa-search-plus"></i> Просмотреть документ
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Документ 2: Сертификат соответствия ГОСТ (1 страница) -->
+                        <div class="document-card" data-document="nexus-pro-2" data-pages="1" data-title="Сертификат соответствия Nexus Pro ГОСТ 32998.4-2014">
+                            <div class="document-image">
+                                <img src="images/certificates/nexus-pro-gost.jpg" alt="Сертификат соответствия Nexus Pro ГОСТ">
+                                <span class="document-pages">1 стр.</span>
+                            </div>
+                            <div class="document-info">
+                                <div class="document-name">Сертификат соответствия ГОСТ 32998.4-2014</div>
+                                <div class="document-description">Сертификат соответствия требованиям нормативных документов ГОСТ 32998.4-2014. Подтверждает соответствие герметика Nexus Pro государственным стандартам.</div>
+                                <button class="document-view-btn">
+                                    <i class="fas fa-search-plus"></i> Просмотреть документ
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Документ 3: Протокол испытаний на фенол (2 страницы) -->
+                        <div class="document-card" data-document="nexus-pro-3" data-pages="2" data-title="Протокол испытаний Nexus Pro на фенол">
+                            <div class="document-image">
+                                <img src="images/certificates/nexus-pro-phenol-1.jpg" alt="Протокол испытаний на фенол Nexus Pro - страница 1">
+                                <span class="document-pages">2 стр.</span>
+                            </div>
+                            <div class="document-info">
+                                <div class="document-name">Протокол испытаний на фенол</div>
+                                <div class="document-description">Протокол испытаний на содержание фенола. Подтверждает безопасность герметика Nexus Pro по содержанию вредных химических веществ.</div>
+                                <button class="document-view-btn">
+                                    <i class="fas fa-search-plus"></i> Просмотреть документ
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Документ 4: Экспертное заключение (2 страницы) -->
+                        <div class="document-card" data-document="nexus-pro-4" data-pages="2" data-title="Экспертное заключение Nexus Pro">
+                            <div class="document-image">
+                                <img src="images/certificates/nexus-pro-expert-1.jpg" alt="Экспертное заключение Nexus Pro - страница 1">
+                                <span class="document-pages">2 стр.</span>
+                            </div>
+                            <div class="document-info">
+                                <div class="document-name">Экспертное заключение</div>
+                                <div class="document-description">Экспертное заключение о соответствии продукции Единым санитарно-эпидемиологическим и гигиеническим требованиям. Подтверждает безопасность продукции для здоровья.</div>
+                                <button class="document-view-btn">
+                                    <i class="fas fa-search-plus"></i> Просмотреть документ
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                
-                <!-- Сертификат 4 -->
-                <div class="certificate-card">
-                    <div class="certificate-image">
-                        <img src="images/certificates/neos-sv-gost-certificate.jpg" alt="Сертификат Neos SV ГОСТ">
+            </div>
+        </div>
+        
+        <!-- Модальное окно для просмотра документов -->
+        <div class="document-modal" id="document-modal">
+            <div class="document-modal-content">
+                <div class="document-modal-header">
+                    <h3 class="document-modal-title" id="document-modal-title">Заголовок документа</h3>
+                    <button class="document-modal-close" id="document-modal-close">&times;</button>
+                </div>
+                <div class="document-modal-body">
+                    <div class="document-carousel">
+                        <div class="document-carousel-slides" id="document-carousel-slides">
+                            <!-- Слайды будут добавлены динамически -->
+                        </div>
+                        <div class="document-carousel-controls">
+                            <button class="document-carousel-btn" id="document-prev-btn">‹</button>
+                            <button class="document-carousel-btn" id="document-next-btn">›</button>
+                        </div>
                     </div>
-                    <div class="certificate-info">
-                        <div class="certificate-name">Сертификат Neos SV</div>
-                        <div class="certificate-description">Соответствие герметика Neos SV требованиям нормативных документов ГОСТ</div>
+                    <div class="document-carousel-indicators" id="document-indicators">
+                        <!-- Индикаторы будут добавлены динамически -->
                     </div>
                 </div>
-                
-                <!-- Сертификат 5 -->
-                <div class="certificate-card">
-                    <div class="certificate-image">
-                        <img src="images/certificates/neos-sv-registration-certificate.jpg" alt="Свидетельство о гос. регистрации Neos SV">
-                    </div>
-                    <div class="certificate-info">
-                        <div class="certificate-name">Свидетельство о гос. регистрации</div>
-                        <div class="certificate-description">Свидетельство о государственной регистрации герметика Neos SV</div>
-                    </div>
+                <div class="document-modal-footer">
+                    <span id="document-page-info">Страница 1 из 1</span>
                 </div>
             </div>
         </div>
@@ -2772,7 +3242,7 @@
                 });
             });
             
-            // Tab functionality
+            // Tab functionality for products
             const tabs = document.querySelectorAll('.tab');
             const tabContents = document.querySelectorAll('.tab-content');
             
@@ -2787,6 +3257,24 @@
                     // Add active class to current tab and content
                     tab.classList.add('active');
                     document.getElementById(tabId).classList.add('active');
+                });
+            });
+            
+            // Tab functionality for certificates
+            const certTabs = document.querySelectorAll('.certificates-tab');
+            const certContents = document.querySelectorAll('.certificates-content');
+            
+            certTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabId = tab.getAttribute('data-cert-tab');
+                    
+                    // Remove active class from all tabs and contents
+                    certTabs.forEach(t => t.classList.remove('active'));
+                    certContents.forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to current tab and content
+                    tab.classList.add('active');
+                    document.getElementById('certificates-' + tabId).classList.add('active');
                 });
             });
             
@@ -2966,261 +3454,517 @@
                         prevSlide();
                     }
                 }
+            }
+
+            // ФУНКЦИОНАЛ ДЛЯ МОДАЛЬНОГО ОКНА С ДОКУМЕНТАМИ
+            const documentModal = document.getElementById('document-modal');
+            const documentModalClose = document.getElementById('document-modal-close');
+            const documentModalTitle = document.getElementById('document-modal-title');
+            const documentCarouselSlides = document.getElementById('document-carousel-slides');
+            const documentPrevBtn = document.getElementById('document-prev-btn');
+            const documentNextBtn = document.getElementById('document-next-btn');
+            const documentIndicators = document.getElementById('document-indicators');
+            const documentPageInfo = document.getElementById('document-page-info');
+
+            let currentPage = 0;
+            let totalPages = 1;
+
+            // Данные для документов
+            const documentData = {
+                'neos-sv-1': {
+                    title: 'Протокол исследований Neos SV',
+                    pages: [
+                        { img: 'images/certificates/neos-sv-protocol-1.jpg', desc: 'Страница 1: Титульный лист и основные данные' },
+                        { img: 'images/certificates/neos-sv-protocol-2.jpg', desc: 'Страница 2: Результаты испытаний и заключение' }
+                    ]
+                },
+                'neos-sv-2': {
+                    title: 'Сертификат соответствия Neos SV ГОСТ 32998.4-2014',
+                    pages: [
+                        { img: 'images/certificates/neos-sv-gost.jpg', desc: 'Сертификат соответствия ГОСТ 32998.4-2014' }
+                    ]
+                },
+                'neos-sv-3': {
+                    title: 'Свидетельство о государственной регистрации Neos SV',
+                    pages: [
+                        { img: 'images/certificates/neos-sv-registration.jpg', desc: 'Свидетельство о государственной регистрации продукции' }
+                    ]
+                },
+                'neos-sv-4': {
+                    title: 'Экспертное заключение Neos SV',
+                    pages: [
+                        { img: 'images/certificates/neos-sv-expert-1.jpg', desc: 'Страница 1: Титульный лист и основные данные' },
+                        { img: 'images/certificates/neos-sv-expert-2.jpg', desc: 'Страница 2: Заключение эксперта' }
+                    ]
+                },
+                'neos-1': {
+                    title: 'Протокол исследований Neos',
+                    pages: [
+                        { img: 'images/certificates/neos-protocol-1.jpg', desc: 'Страница 1: Титульный лист и основные данные' },
+                        { img: 'images/certificates/neos-protocol-2.jpg', desc: 'Страница 2: Результаты испытаний и заключение' }
+                    ]
+                },
+                'neos-2': {
+                    title: 'Сертификат соответствия Neos ГОСТ 32998.4-2014',
+                    pages: [
+                        { img: 'images/certificates/neos-gost.jpg', desc: 'Сертификат соответствия ГОСТ 32998.4-2014' }
+                    ]
+                },
+                'neos-3': {
+                    title: 'Протокол испытаний Neos на фенол',
+                    pages: [
+                        { img: 'images/certificates/neos-phenol-1.jpg', desc: 'Страница 1: Титульный лист и основные данные' },
+                        { img: 'images/certificates/neos-phenol-2.jpg', desc: 'Страница 2: Результаты испытаний на фенол' }
+                    ]
+                },
+                'neos-4': {
+                    title: 'Экспертное заключение Neos',
+                    pages: [
+                        { img: 'images/certificates/neos-expert-1.jpg', desc: 'Страница 1: Титульный лист и основные данные' },
+                        { img: 'images/certificates/neos-expert-2.jpg', desc: 'Страница 2: Заключение эксперта' }
+                    ]
+                },
+                'nexus-pro-1': {
+                    title: 'Протокол исследований Nexus Pro',
+                    pages: [
+                        { img: 'images/certificates/nexus-pro-protocol-1.jpg', desc: 'Страница 1: Титульный лист и основные данные' },
+                        { img: 'images/certificates/nexus-pro-protocol-2.jpg', desc: 'Страница 2: Результаты испытаний и заключение' }
+                    ]
+                },
+                'nexus-pro-2': {
+                    title: 'Сертификат соответствия Nexus Pro ГОСТ 32998.4-2014',
+                    pages: [
+                        { img: 'images/certificates/nexus-pro-gost.jpg', desc: 'Сертификат соответствия ГОСТ 32998.4-2014' }
+                    ]
+                },
+                'nexus-pro-3': {
+                    title: 'Протокол испытаний Nexus Pro на фенол',
+                    pages: [
+                        { img: 'images/certificates/nexus-pro-phenol-1.jpg', desc: 'Страница 1: Титульный лист и основные данные' },
+                        { img: 'images/certificates/nexus-pro-phenol-2.jpg', desc: 'Страница 2: Результаты испытаний на фенол' }
+                    ]
+                },
+                'nexus-pro-4': {
+                    title: 'Экспертное заключение Nexus Pro',
+                    pages: [
+                        { img: 'images/certificates/nexus-pro-expert-1.jpg', desc: 'Страница 1: Титульный лист и основные данные' },
+                        { img: 'images/certificates/nexus-pro-expert-2.jpg', desc: 'Страница 2: Заключение эксперта' }
+                    ]
+                }
+            };
+
+            // Используем делегирование событий для карточек документов
+            document.addEventListener('click', function(e) {
+                // Обработка клика по кнопке просмотра документа
+                if (e.target.closest('.document-view-btn')) {
+                    e.preventDefault();
+                    const card = e.target.closest('.document-card');
+                    if (card) {
+                        const documentId = card.getAttribute('data-document');
+                        const documentTitle = card.getAttribute('data-title');
+                        openDocumentModal(documentId, documentTitle);
+                    }
+                    return;
+                }
+
+                // Обработка клика по самой карточке документа (но не по кнопке)
+                if (e.target.closest('.document-card')) {
+                    const card = e.target.closest('.document-card');
+                    // Проверяем, что клик не был по кнопке
+                    if (!e.target.closest('.document-view-btn')) {
+                        e.preventDefault();
+                        const documentId = card.getAttribute('data-document');
+                        const documentTitle = card.getAttribute('data-title');
+                        openDocumentModal(documentId, documentTitle);
+                    }
+                }
+            });
+
+            // Функция открытия модального окна с документом
+            function openDocumentModal(documentId, title) {
+                const docData = documentData[documentId];
                 
-                // Автоматическое перелистывание (опционально, можно закомментировать)
-                // let slideInterval = setInterval(nextSlide, 5000);
+                if (!docData) {
+                    console.error('Документ не найден:', documentId);
+                    alert('Документ временно недоступен');
+                    return;
+                }
                 
-                // Останавливаем авто-перелистывание при наведении мыши
-                // schemeSlides.parentElement.addEventListener('mouseenter', () => {
-                //     clearInterval(slideInterval);
-                // });
+                // Устанавливаем заголовок
+                documentModalTitle.textContent = title;
                 
-                // Возобновляем авто-перелистывание при уходе мыши
-                // schemeSlides.parentElement.addEventListener('mouseleave', () => {
-                //     slideInterval = setInterval(nextSlide, 5000);
-                // });
+                // Очищаем слайды
+                documentCarouselSlides.innerHTML = '';
+                documentIndicators.innerHTML = '';
+                
+                // Добавляем слайды
+                docData.pages.forEach((page, i) => {
+                    const slide = document.createElement('div');
+                    slide.className = 'document-carousel-slide';
+                    
+                    const img = document.createElement('img');
+                    img.src = page.img;
+                    img.alt = page.desc;
+                    img.className = 'document-carousel-image';
+                    
+                    const pageInfo = document.createElement('div');
+                    pageInfo.className = 'document-carousel-page';
+                    pageInfo.textContent = page.desc;
+                    
+                    slide.appendChild(img);
+                    slide.appendChild(pageInfo);
+                    documentCarouselSlides.appendChild(slide);
+                    
+                    // Добавляем индикатор
+                    const indicator = document.createElement('span');
+                    indicator.className = 'document-carousel-indicator';
+                    if (i === 0) indicator.classList.add('active');
+                    indicator.setAttribute('data-page', i);
+                    indicator.addEventListener('click', () => goToPage(i));
+                    documentIndicators.appendChild(indicator);
+                });
+                
+                // Устанавливаем текущую страницу
+                currentPage = 0;
+                totalPages = docData.pages.length;
+                updateDocumentCarousel();
+                
+                // Показываем модальное окно
+                documentModal.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Запрещаем прокрутку страницы
+            }
+
+            // Функция перехода к определенной странице
+            function goToPage(pageIndex) {
+                if (pageIndex < 0) pageIndex = totalPages - 1;
+                if (pageIndex >= totalPages) pageIndex = 0;
+                
+                currentPage = pageIndex;
+                updateDocumentCarousel();
+            }
+
+            // Функция обновления карусели документов
+            function updateDocumentCarousel() {
+                // Перемещаем слайды
+                documentCarouselSlides.style.transform = `translateX(-${currentPage * 100}%)`;
+                
+                // Обновляем индикаторы
+                const indicators = document.querySelectorAll('.document-carousel-indicator');
+                indicators.forEach((indicator, index) => {
+                    if (index === currentPage) {
+                        indicator.classList.add('active');
+                    } else {
+                        indicator.classList.remove('active');
+                    }
+                });
+                
+                // Обновляем информацию о странице
+                documentPageInfo.textContent = `Страница ${currentPage + 1} из ${totalPages}`;
+                
+                // Показываем/скрываем кнопки навигации в зависимости от количества страниц
+                if (totalPages <= 1) {
+                    documentPrevBtn.style.display = 'none';
+                    documentNextBtn.style.display = 'none';
+                } else {
+                    documentPrevBtn.style.display = 'flex';
+                    documentNextBtn.style.display = 'flex';
+                }
+            }
+
+            // Обработчики для кнопок навигации
+            documentPrevBtn.addEventListener('click', () => goToPage(currentPage - 1));
+            documentNextBtn.addEventListener('click', () => goToPage(currentPage + 1));
+
+            // Закрытие модального окна
+            documentModalClose.addEventListener('click', closeDocumentModal);
+
+            // Закрытие модального окна при клике вне его
+            documentModal.addEventListener('click', (e) => {
+                if (e.target === documentModal) {
+                    closeDocumentModal();
+                }
+            });
+
+            // Закрытие модального окна по клавише Esc
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && documentModal.classList.contains('active')) {
+                    closeDocumentModal();
+                }
+            });
+
+            // Функция закрытия модального окна
+            function closeDocumentModal() {
+                documentModal.classList.remove('active');
+                document.body.style.overflow = 'auto'; // Восстанавливаем прокрутку страницы
+            }
+
+            // Добавляем свайпы для мобильных устройств в модальном окне
+            let docTouchStartX = 0;
+            let docTouchEndX = 0;
+
+            documentModal.addEventListener('touchstart', (e) => {
+                docTouchStartX = e.changedTouches[0].screenX;
+            });
+
+            documentModal.addEventListener('touchend', (e) => {
+                docTouchEndX = e.changedTouches[0].screenX;
+                handleDocumentSwipe();
+            });
+
+            function handleDocumentSwipe() {
+                const swipeThreshold = 50; // Минимальное расстояние свайпа
+                
+                if (docTouchStartX - docTouchEndX > swipeThreshold) {
+                    // Свайп влево - следующая страница
+                    goToPage(currentPage + 1);
+                }
+                
+                if (docTouchEndX - docTouchStartX > swipeThreshold) {
+                    // Свайп вправо - предыдущая страница
+                    goToPage(currentPage - 1);
+                }
+            }
+
+            // Инициализация Яндекс.Карты контактов
+            ymaps.ready(initContactsMap);
+
+            function initContactsMap() {
+                // Создание карты
+                var myMap = new ymaps.Map("contacts-map", {
+                    center: [55.834693, 49.048541], // Координаты центра карты (Казань, ул. Восстания, 100)
+                    zoom: 16 // Масштаб карты
+                });
+
+                // Создание метки
+                var myPlacemark = new ymaps.Placemark([55.834693, 49.048541], {
+                    hintContent: 'ООО "Тиоком-Герметик"',
+                    balloonContent: 'г. Казань, ул. Восстания, 100, корп. 2001'
+                }, {
+                    // Опции
+                    iconLayout: 'default#image',
+                    iconImageHref: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAiIGhlaWdodD0iNDIiIHZpZXdCb3g9IjAgMCAzMCA0MiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTE1IDBDNi43MTU3MyAwIDAgNi43MTU3MyAwIDE1QzAgMjMuMjg0MyA2LjcxNTczIDMwIDE1IDMwQzIzLjI4NDMgMzAgMzAgMjMuMjg0MyAzMCAxNUMzMCA2LjcxNTczIDIzLjI4NDMgMCAxNSAwWiIgZmlsbD0iIzBENDdBMSIvPgo8cGF0aCBkPSJNMTUgMEM2LjcxNTczIDAgMCA2LjcxNTczIDAgMTVDMCAyMy4yODQzIDYuNzE1NzMgMzAgMTUgMzBDMjMuMjg0MyAzMCAzMCAyMy4yODQzIDMwIDE1QzMwIDYuNzE1NzMgMjMuMjg0MyAwIDE1IDBaIiBmaWxsPSJ3aGl0ZSIgZmlsbC1vcGFjaXR5PSIwLjIiLz4KPHBhdGggZD0iTTE1IDNDOC4zNzI1OCAzIDMgOC4zNzI1OCAzIDE1QzMgMjEuNjI3NCA4LjM3MjU4IDI3IDE1IDI3QzIxLjYyNzQgMjcgMjcgMjEuNjI3NCAyNyAxNUMyNyA4LjM3MjU4IDIxLjYyNzQgMyAxNSAzWiIgZmlsbD0iIzBENDdBMSIvPgo8L3N2Zz4K',
+                    iconImageSize: [30, 42],
+                    iconImageOffset: [-15, -42]
+                });
+
+                // Добавление метки на карту
+                myMap.geoObjects.add(myPlacemark);
+
+                // Добавление элементов управления
+                myMap.controls.remove('geolocationControl');
+                myMap.controls.remove('searchControl');
+                myMap.controls.remove('trafficControl');
+                myMap.controls.remove('typeSelector');
+                myMap.controls.remove('fullscreenControl');
+                myMap.controls.remove('rulerControl');
+            }
+
+            // Инициализация Яндекс.Карты с дистрибьюторами
+            ymaps.ready(initDistributorsMap);
+
+            function initDistributorsMap() {
+                // Создаем карту
+                var distributorsMap = new ymaps.Map('distributors-map', {
+                    center: [55.76, 37.64], // Москва
+                    zoom: 4,
+                    controls: ['zoomControl', 'fullscreenControl']
+                });
+
+                // Данные по регионам с дистрибьюторами
+                var regionsData = [
+                    {
+                        region: 'Москва и Московская область',
+                        cities: ['Москва', 'Красногорск'],
+                        distributors: 3,
+                        color: '#0d47a1'
+                    },
+                    {
+                        region: 'Татарстан',
+                        cities: ['Казань', 'Набережные Челны'],
+                        distributors: 2,
+                        color: '#0d47a1'
+                    },
+                    {
+                        region: 'Санкт-Петербург и Ленинградская область',
+                        cities: ['Санкт-Петербург'],
+                        distributors: 1,
+                        color: '#0d47a1'
+                    },
+                    {
+                        region: 'Свердловская область',
+                        cities: ['Екатеринбург'],
+                        distributors: 1,
+                        color: '#0d47a1'
+                    },
+                    {
+                        region: 'Новосибирская область',
+                        cities: ['Новосибирск'],
+                        distributors: 1,
+                        color: '#0d47a1'
+                    },
+                    {
+                        region: 'Челябинская область',
+                        cities: ['Челябинск'],
+                        distributors: 1,
+                        color: '#0d47a1'
+                    },
+                    {
+                        region: 'Омская область',
+                        cities: ['Омск'],
+                        distributors: 1,
+                        color: '#0d47a1'
+                    },
+                    {
+                        region: 'Самарская область',
+                        cities: ['Самара'],
+                        distributors: 1,
+                        color: '#0d47a1'
+                    },
+                    {
+                        region: 'Нижегородская область',
+                        cities: ['Нижний Новгород'],
+                        distributors: 1,
+                        color: '#0d47a1'
+                    },
+                    {
+                        region: 'Красноярский край',
+                        cities: ['Красноярск'],
+                        distributors: 1,
+                        color: '#0d47a1'
+                    },
+                    {
+                        region: 'Иркутская область',
+                        cities: ['Иркутск'],
+                        distributors: 1,
+                        color: '#0d47a1'
+                    },
+                    {
+                        region: 'Томская область',
+                        cities: ['Томск'],
+                        distributors: 1,
+                        color: '#0d47a1'
+                    },
+                    {
+                        region: 'Тюменская область',
+                        cities: ['Тюмень'],
+                        distributors: 1,
+                        color: '#0d47a1'
+                    },
+                    {
+                        region: 'Вологодская область',
+                        cities: ['Вологда'],
+                        distributors: 1,
+                        color: '#0d47a1'
+                    },
+                    {
+                        region: 'Ростовская область',
+                        cities: ['Ростов-на-Дону'],
+                        distributors: 1,
+                        color: '#0d47a1'
+                    },
+                    {
+                        region: 'Волгоградская область',
+                        cities: ['Волгоград'],
+                        distributors: 1,
+                        color: '#0d47a1'
+                    },
+                    {
+                        region: 'Краснодарский край',
+                        cities: ['Краснодар'],
+                        distributors: 1,
+                        color: '#0d47a1'
+                    },
+                    {
+                        region: 'Хабаровский край',
+                        cities: ['Хабаровск'],
+                        distributors: 1,
+                        color: '#0d47a1'
+                    },
+                    {
+                        region: 'Беларусь',
+                        cities: ['Минск'],
+                        distributors: 1,
+                        color: '#0d47a1'
+                    },
+                    {
+                        region: 'Казахстан',
+                        cities: ['Алматы'],
+                        distributors: 1,
+                        color: '#0d47a1'
+                    }
+                ];
+
+                // Создаем коллекцию для регионов
+                var regionsCollection = new ymaps.GeoObjectCollection();
+
+                // Добавляем регионы на карту
+                regionsData.forEach(function(regionData) {
+                    // Поиск координат региона
+                    ymaps.geocode(regionData.region, {
+                        results: 1
+                    }).then(function (res) {
+                        var firstGeoObject = res.geoObjects.get(0);
+                        if (firstGeoObject) {
+                            var coordinates = firstGeoObject.geometry.getCoordinates();
+                            var bounds = firstGeoObject.properties.get('boundedBy');
+                            
+                            // Создаем метку для региона
+                            var regionMarker = new ymaps.Placemark(coordinates, {
+                                balloonContentHeader: regionData.region,
+                                balloonContentBody: 
+                                    '<strong>Города:</strong> ' + regionData.cities.join(', ') + '<br>' +
+                                    '<strong>Количество дистрибьюторов:</strong> ' + regionData.distributors,
+                                balloonContentFooter: '<em>Нажмите для подробной информации</em>',
+                                hintContent: regionData.region
+                            }, {
+                                preset: 'islands#circleIcon',
+                                iconColor: regionData.color,
+                                balloonCloseButton: true,
+                                hideIconOnBalloonOpen: false
+                            });
+
+                            // Добавляем обработчик клика
+                            regionMarker.events.add('click', function () {
+                                // При клике показываем информацию о дистрибьюторах в этом регионе
+                                showRegionDistributors(regionData.region);
+                            });
+
+                            regionsCollection.add(regionMarker);
+                        }
+                    });
+                });
+
+                // Добавляем коллекцию на карту
+                distributorsMap.geoObjects.add(regionsCollection);
+
+                // Функция для показа дистрибьюторов региона
+                function showRegionDistributors(regionName) {
+                    // Находим карточки регионов по названию
+                    var regionCards = document.querySelectorAll('.region-card');
+                    var found = false;
+                    
+                    regionCards.forEach(function(card) {
+                        var cardRegion = card.querySelector('h3').textContent;
+                        if (cardRegion.includes(regionName.split(' ')[0]) || regionName.includes(cardRegion)) {
+                            card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            
+                            // Добавляем подсветку
+                            card.style.boxShadow = '0 0 0 3px #ff9800';
+                            setTimeout(function() {
+                                card.style.boxShadow = '';
+                            }, 3000);
+                            
+                            found = true;
+                        }
+                    });
+                    
+                    if (!found) {
+                        // Если точного совпадения нет, показываем общее сообщение
+                        alert('Информация о дистрибьюторах в регионе ' + regionName + ' доступна в списке ниже.');
+                    }
+                }
             }
         });
-
-        // Инициализация Яндекс.Карты контактов
-        ymaps.ready(initContactsMap);
-
-        function initContactsMap() {
-            // Создание карты
-            var myMap = new ymaps.Map("contacts-map", {
-                center: [55.834693, 49.048541], // Координаты центра карты (Казань, ул. Восстания, 100)
-                zoom: 16 // Масштаб карты
-            });
-
-            // Создание метки
-            var myPlacemark = new ymaps.Placemark([55.834693, 49.048541], {
-                hintContent: 'ООО "Тиоком-Герметик"',
-                balloonContent: 'г. Казань, ул. Восстания, 100, корп. 2001'
-            }, {
-                // Опции
-                iconLayout: 'default#image',
-                iconImageHref: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAiIGhlaWdodD0iNDIiIHZpZXdCb3g9IjAgMCAzMCA0MiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTE1IDBDNi43MTU3MyAwIDAgNi43MTU3MyAwIDE1QzAgMjMuMjg0MyA2LjcxNTczIDMwIDE1IDMwQzIzLjI4NDMgMzAgMzAgMjMuMjg0MyAzMCAxNUMzMCA2LjcxNTczIDIzLjI4NDMgMCAxNSAwWiIgZmlsbD0iIzBENDdBMSIvPgo8cGF0aCBkPSJNMTUgMEM2LjcxNTczIDAgMCA2LjcxNTczIDAgMTVDMCAyMy4yODQzIDYuNzE1NzMgMzAgMTUgMzBDMjMuMjg0MyAzMCAzMCAyMy4yODQzIDMwIDE1QzMwIDYuNzE1NzMgMjMuMjg0MyAwIDE1IDBaIiBmaWxsPSJ3aGl0ZSIgZmlsbC1vcGFjaXR5PSIwLjIiLz4KPHBhdGggZD0iTTE1IDNDOC4zNzI1OCAzIDMgOC4zNzI1OCAzIDE1QzMgMjEuNjI3NCA4LjM3MjU4IDI3IDE1IDI3QzIxLjYyNzQgMjcgMjcgMjEuNjI3NCAyNyAxNUMyNyA4LjM3MjU4IDIxLjYyNzQgMyAxNSAzWiIgZmlsbD0iIzBENDdBMSIvPgo8L3N2Zz4K',
-                iconImageSize: [30, 42],
-                iconImageOffset: [-15, -42]
-            });
-
-            // Добавление метки на карту
-            myMap.geoObjects.add(myPlacemark);
-
-            // Добавление элементов управления
-            myMap.controls.remove('geolocationControl');
-            myMap.controls.remove('searchControl');
-            myMap.controls.remove('trafficControl');
-            myMap.controls.remove('typeSelector');
-            myMap.controls.remove('fullscreenControl');
-            myMap.controls.remove('rulerControl');
-        }
-
-        // Инициализация Яндекс.Карты с дистрибьюторами
-        ymaps.ready(initDistributorsMap);
-
-        function initDistributorsMap() {
-            // Создаем карту
-            var distributorsMap = new ymaps.Map('distributors-map', {
-                center: [55.76, 37.64], // Москва
-                zoom: 4,
-                controls: ['zoomControl', 'fullscreenControl']
-            });
-
-            // Данные по регионам с дистрибьюторами
-            var regionsData = [
-                {
-                    region: 'Москва и Московская область',
-                    cities: ['Москва', 'Красногорск'],
-                    distributors: 3,
-                    color: '#0d47a1'
-                },
-                {
-                    region: 'Татарстан',
-                    cities: ['Казань', 'Набережные Челны'],
-                    distributors: 2,
-                    color: '#0d47a1'
-                },
-                {
-                    region: 'Санкт-Петербург и Ленинградская область',
-                    cities: ['Санкт-Петербург'],
-                    distributors: 1,
-                    color: '#0d47a1'
-                },
-                {
-                    region: 'Свердловская область',
-                    cities: ['Екатеринбург'],
-                    distributors: 1,
-                    color: '#0d47a1'
-                },
-                {
-                    region: 'Новосибирская область',
-                    cities: ['Новосибирск'],
-                    distributors: 1,
-                    color: '#0d47a1'
-                },
-                {
-                    region: 'Челябинская область',
-                    cities: ['Челябинск'],
-                    distributors: 1,
-                    color: '#0d47a1'
-                },
-                {
-                    region: 'Омская область',
-                    cities: ['Омск'],
-                    distributors: 1,
-                    color: '#0d47a1'
-                },
-                {
-                    region: 'Самарская область',
-                    cities: ['Самара'],
-                    distributors: 1,
-                    color: '#0d47a1'
-                },
-                {
-                    region: 'Нижегородская область',
-                    cities: ['Нижний Новгород'],
-                    distributors: 1,
-                    color: '#0d47a1'
-                },
-                {
-                    region: 'Красноярский край',
-                    cities: ['Красноярск'],
-                    distributors: 1,
-                    color: '#0d47a1'
-                },
-                {
-                    region: 'Иркутская область',
-                    cities: ['Иркутск'],
-                    distributors: 1,
-                    color: '#0d47a1'
-                },
-                {
-                    region: 'Томская область',
-                    cities: ['Томск'],
-                    distributors: 1,
-                    color: '#0d47a1'
-                },
-                {
-                    region: 'Тюменская область',
-                    cities: ['Тюмень'],
-                    distributors: 1,
-                    color: '#0d47a1'
-                },
-                {
-                    region: 'Вологодская область',
-                    cities: ['Вологда'],
-                    distributors: 1,
-                    color: '#0d47a1'
-                },
-                {
-                    region: 'Ростовская область',
-                    cities: ['Ростов-на-Дону'],
-                    distributors: 1,
-                    color: '#0d47a1'
-                },
-                {
-                    region: 'Волгоградская область',
-                    cities: ['Волгоград'],
-                    distributors: 1,
-                    color: '#0d47a1'
-                },
-                {
-                    region: 'Краснодарский край',
-                    cities: ['Краснодар'],
-                    distributors: 1,
-                    color: '#0d47a1'
-                },
-                {
-                    region: 'Хабаровский край',
-                    cities: ['Хабаровск'],
-                    distributors: 1,
-                    color: '#0d47a1'
-                },
-                {
-                    region: 'Беларусь',
-                    cities: ['Минск'],
-                    distributors: 1,
-                    color: '#0d47a1'
-                },
-                {
-                    region: 'Казахстан',
-                    cities: ['Алматы'],
-                    distributors: 1,
-                    color: '#0d47a1'
-                }
-            ];
-
-            // Создаем коллекцию для регионов
-            var regionsCollection = new ymaps.GeoObjectCollection();
-
-            // Добавляем регионы на карту
-            regionsData.forEach(function(regionData) {
-                // Поиск координат региона
-                ymaps.geocode(regionData.region, {
-                    results: 1
-                }).then(function (res) {
-                    var firstGeoObject = res.geoObjects.get(0);
-                    if (firstGeoObject) {
-                        var coordinates = firstGeoObject.geometry.getCoordinates();
-                        var bounds = firstGeoObject.properties.get('boundedBy');
-                        
-                        // Создаем метку для региона
-                        var regionMarker = new ymaps.Placemark(coordinates, {
-                            balloonContentHeader: regionData.region,
-                            balloonContentBody: 
-                                '<strong>Города:</strong> ' + regionData.cities.join(', ') + '<br>' +
-                                '<strong>Количество дистрибьюторов:</strong> ' + regionData.distributors,
-                            balloonContentFooter: '<em>Нажмите для подробной информации</em>',
-                            hintContent: regionData.region
-                        }, {
-                            preset: 'islands#circleIcon',
-                            iconColor: regionData.color,
-                            balloonCloseButton: true,
-                            hideIconOnBalloonOpen: false
-                        });
-
-                        // Добавляем обработчик клика
-                        regionMarker.events.add('click', function () {
-                            // При клике показываем информацию о дистрибьюторах в этом регионе
-                            showRegionDistributors(regionData.region);
-                        });
-
-                        regionsCollection.add(regionMarker);
-                    }
-                });
-            });
-
-            // Добавляем коллекцию на карту
-            distributorsMap.geoObjects.add(regionsCollection);
-
-            // Функция для показа дистрибьюторов региона
-            function showRegionDistributors(regionName) {
-                // Находим карточки регионов по названию
-                var regionCards = document.querySelectorAll('.region-card');
-                var found = false;
-                
-                regionCards.forEach(function(card) {
-                    var cardRegion = card.querySelector('h3').textContent;
-                    if (cardRegion.includes(regionName.split(' ')[0]) || regionName.includes(cardRegion)) {
-                        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        
-                        // Добавляем подсветку
-                        card.style.boxShadow = '0 0 0 3px #ff9800';
-                        setTimeout(function() {
-                            card.style.boxShadow = '';
-                        }, 3000);
-                        
-                        found = true;
-                    }
-                });
-                
-                if (!found) {
-                    // Если точного совпадения нет, показываем общее сообщение
-                    alert('Информация о дистрибьюторах в регионе ' + regionName + ' доступна в списке ниже.');
-                }
-            }
-        }
     </script>
 </body>
 </html>
